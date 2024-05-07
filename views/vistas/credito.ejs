@@ -1,0 +1,122 @@
+<style>
+    .container-form {
+        margin-top: 85px;
+        margin-left: 120px;
+    }
+
+    @media (max-width: 576px) {
+        .container-form {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 300px; /* Ajusta este valor según tus necesidades */
+        }
+    }
+</style>
+
+<div class="container-centered" style="margin-top: 65px;">
+    <div class="container p-4" style="margin-right: 100px;">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/guardarVentaCredito" method="POST" onsubmit="return validarVenta()">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="nombre_cliente">Nombre del cliente</label>
+                                        <input type="text" id="nombre_cliente" name="nombre_cliente" class="form-control" placeholder="Nombre del cliente" autofocus required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="telefono_cliente">Teléfono del cliente</label>
+                                        <input type="text" id="telefono_cliente" name="telefono_cliente" class="form-control" placeholder="Teléfono del cliente" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="direccion_cliente">Dirección del cliente</label>
+                                        <input type="text" id="direccion_cliente" name="direccion_cliente" class="form-control" placeholder="Dirección del cliente" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="dpi_cliente">DPI del cliente</label>
+                                        <input type="text" id="dpi_cliente" name="dpi_cliente" class="form-control" placeholder="DPI del cliente" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="nit_cliente">NIT del cliente</label>
+                                        <input type="text" id="nit_cliente" name="nit_cliente" class="form-control" placeholder="NIT del cliente" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="id_vendedor">ID del vendedor</label>
+                                        <input type="number" id="id_vendedor" name="id_vendedor" class="form-control" placeholder="ID del vendedor" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="fecha_venta">Fecha de venta</label>
+                                        <input type="date" id="fecha_venta" name="fecha_venta" class="form-control" placeholder="Fecha de venta" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="descuento">Descuento</label>
+                                        <input type="number" id="descuento" name="descuento" class="form-control" placeholder="Descuento" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="cantidad">Cantidad</label>
+                                        <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Cantidad" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="precio">Precio</label>
+                                        <input type="number" id="precio" name="precio" class="form-control" placeholder="Precio" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="codigo_articulo">Código del artículo</label>
+                                        <input type="text" id="codigo_articulo" name="codigo_articulo" class="form-control" placeholder="Código del artículo" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="fecha_limite_pago">Fecha límite de pago</label>
+                                        <input type="date" id="fecha_limite_pago" name="fecha_limite_pago" class="form-control" placeholder="Fecha límite de pago para la primera cuota" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="numero_pagos">numero de pagos</label>
+                                        <input type="number" id="numero_pagos" name="numero_pagos" class="form-control" placeholder="numero de pagos" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-block">
+                                    Guardar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

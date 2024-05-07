@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda y selección de artículos</title>
+</head>
+
+<body>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="card">
+                    <div class="card-header" class="col-md-12 mx-auto">
+                        <div class="container-centered" style="margin-bottom: 20px;">
+                            <input type="text" id="busqueda" placeholder="Buscar por nombre de artículo..." class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="resultados" style="display: none;">
+                            <ul id="lista-resultados"></ul>
+                        </div>
+                        <table class="table" id="tabla-resultados">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Precio</th>
+                                    <th>Agregar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const busquedaInput = document.getElementById('busqueda');
+        const listaResultados = document.getElementById('lista-resultados');
+        const resultadosDiv = document.getElementById('resultados');
+        const tablaResultados = document.getElementById('tabla-resultados').getElementsByTagName('tbody')[0];
+
+        // Función para enviar la solicitud de búsqueda al servidor
+        function buscarArticulos(termino) {
+            fetch(`/buscarArticulos?termino=${termino}`)
+                .then(response => response.json())
+                .then(data => {
+                    listaResultados.innerHTML = ''; // Limpiar la lista de resultados
+                    tablaResultados.innerHTML = ''; // Limpiar la tabla de resultados
+
+                    if (data.length > 0) {
+                        resultadosDiv.style.display = 'block'; // Mostrar resultados si hay alguno
+                        data.forEach(articulo => {
+                            const li = document.createElement('li');
+                            li.textContent = articulo.nombre;
+                            li.addEventListener('click', function () {
+                                agregarArticulo(articulo);
+                            });
+                            listaResultados.appendChild(li);
+                        });
+                    } else {
+                        resultadosDiv.style.display = 'none'; // Ocultar resultados si no hay ninguno
+                    }
+                })
+                .catch(error => console.error('Hubo un error al realizar la búsqueda:', error));
+        }
+
+        // Evento de entrada en el campo de búsqueda
+        busquedaInput.addEventListener('input', function () {
+            const termino = this.value.toLowerCase();
+            if (termino.trim() !== '') {
+                buscarArticulos(termino);
+            } else {
+                listaResultados.innerHTML = ''; // Limpiar la lista de resultados si el término de búsqueda está vacío
+                resultadosDiv.style.display = 'none'; // Ocultar resultados si el término de búsqueda está vacío
+            }
+        });
+
+        function agregarArticulo(articulo) {
+            const row = tablaResultados.insertRow();
+            row.innerHTML = `<td>${articulo.codigo}</td><td>${articulo.nombre}</td><td>${articulo.precio}</td><td><button onclick="eliminarFila(this)">Eliminar</button></td>`;
+            resultadosDiv.style.display = 'none';
+        }
+
+        function eliminarFila(button) {
+            const row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+    </script>
+</body>
+
+</html>

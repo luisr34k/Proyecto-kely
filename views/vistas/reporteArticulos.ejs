@@ -1,0 +1,181 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reporte de Artículos</title>
+    </head>
+
+    <body>
+        <div class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header" class="col-md-12 mx-auto">
+                            <div class="container-centered" style="margin-bottom: 20px;">
+                                <input type="text" id="busqueda" placeholder="Buscar por nombre de artículo..." class="form-control">
+                    
+                            </div>
+                            <h4 class="card-title">Reporte de Artículos</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table tablesorter" id="tabla-articulos" style="height: 400px; overflow-y: auto;">
+                                    <thead class="text-primary">
+                                        <tr>
+                                            <th>Acciones</th>
+                                            <th>Código</th>
+                                            <th>Nombre</th>
+                                            <th>Precio Costo</th>
+                                            <th>Precio Venta</th>
+                                            <th>Precio Sugerido</th>
+                                            <th>Ubicación</th>
+                                            <th>Descripción</th>
+                                            <th>Categoría</th>
+                                            <th>Subcategoría</th>
+                                            <th>Color</th>
+                                            <th>Talla</th>
+                                            <th>Marca</th>
+                                            <th>Stock</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% resultados.forEach(articulo => { %>
+                                            <tr>
+                                                <td>
+                                                    <button class="btn btn-info" onclick="mostrarInformacionCuotas('<%= articulo.codigo %>')">Info.</button>
+                                                </td> 
+                                                <td><%= articulo.codigo %></td>
+                                                <td><%= articulo.nombre %></td>
+                                                <td><%= articulo.precio_costo %></td>
+                                                <td><%= articulo.precio_venta %></td>
+                                                <td><%= articulo.precio_sugerido %></td>
+                                                <td><%= articulo.ubicacion %></td>
+                                                <td><%= articulo.descripcion %></td>
+                                                <td><%= articulo.categoria %></td>
+                                                <td><%= articulo.subcategoria %></td>
+                                                <td><%= articulo.color %></td>
+                                                <td><%= articulo.talla %></td>
+                                                <td><%= articulo.marca %></td>
+                                                <td><%= articulo.stock %></td>
+                                            </tr>
+                                        <% }); %>
+                                        <% if (resultados.length === 0) { %>
+                                            <tr>
+                                                <td colspan="14">No se encontraron resultados para "<%= busqueda %>".</td>
+                                            </tr>
+                                        <% } %>
+                                    </tbody>
+                                    
+                                    
+                                </table>
+                            </div>
+                            <div class="pagination">
+                                <% if (pagina > 1) { %>
+                                    <a href="/reporteArticulos?busqueda=<%= busqueda %>&pagina=<%= pagina - 1 %>">Anterior</a>
+                                <% } %>
+                                <% for (let i = 1; i <= totalPages; i++) { %>
+                                    <a href="/reporteArticulos?busqueda=<%= busqueda %>&pagina=<%= i %>" <%= i === pagina ? 'class="active"' : '' %>><%= i %></a>
+                                <% } %>
+                                <% if (pagina < totalPages) { %>
+                                    <a href="/reporteArticulos?busqueda=<%= busqueda %>&pagina=<%= pagina + 1 %>">Siguiente</a>
+                                <% } %>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
+
+<div class="modal fade" id="cuotasModal" tabindex="-1" role="dialog" aria-labelledby="cuotasModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cuotasModalLabel">Información de Cuotas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Aquí puedes agregar el contenido de la ventana emergente de las cuotas -->
+                <p>Contenido de las cuotas...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function mostrarInformacionCuotas(codigo) {
+        // Mostrar la ventana emergente de las cuotas
+        $('#cuotasModal').modal('show');
+    }
+</script>
+
+
+
+<script>
+    $(document).ready(function() {
+        let timeoutId;
+
+        // Función para realizar la búsqueda
+        function realizarBusqueda() {
+            const valorBusqueda = $('#busqueda').val().trim().toLowerCase();
+            const url = window.location.href.split('?')[0]; // Obtener la URL base sin los parámetros de consulta
+            const parametros = new URLSearchParams(window.location.search);
+            parametros.set('busqueda', valorBusqueda); // Establecer el término de búsqueda en los parámetros de consulta
+            parametros.delete('pagina'); // Eliminar el parámetro de página para volver a la primera página
+            window.location.href = `${url}?${parametros.toString()}`; // Redireccionar con los nuevos parámetros de consulta
+        }
+
+        $('#busqueda').on('keyup', function(event) {
+            if (event.key === 'Enter') {
+                realizarBusqueda(); // Realizar búsqueda cuando se presiona "Enter"
+            } else {
+                clearTimeout(timeoutId); // Limpiar el temporizador anterior si existe
+                timeoutId = setTimeout(realizarBusqueda, 10000); // Retraso de 500 milisegundos (medio segundo)
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+<style>
+    .pagination {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .pagination a {
+        display: inline-block;
+        padding: 8px 16px;
+        text-decoration: none;
+        color: #000;
+        border: 1px solid #ddd;
+        margin: 0 4px;
+        border-radius: 4px;
+    }
+
+    .pagination a.active {
+        background-color: #007bff;
+        color: #fff;
+        border: 1px solid #007bff;
+    }
+
+    .pagination a:hover {
+        background-color: #f2f2f2;
+    }
+</style>

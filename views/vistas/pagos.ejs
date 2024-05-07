@@ -1,0 +1,40 @@
+<div class="container-centered" style="margin-top: 65px;">
+    <div class="container p-4" style="margin-right: 100px;">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/guardarPago" method="POST" onsubmit="return validarPago()">
+                            <input type="hidden" name="id_venta" value="ID_DE_LA_VENTA_A_LA_QUE_CORRESPONDE_EL_PAGO">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="monto_pago">Monto del pago</label>
+                                        <input type="number" id="monto_pago" name="monto_pago" class="form-control" placeholder="Monto del pago" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="fecha_pago">Fecha de pago</label>
+                                        <input type="date" id="fecha_pago" name="fecha_pago" class="form-control" placeholder="Fecha de pago" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="fecha_vencimiento">Fecha de vencimiento</label>
+                                        <input type="date" id="fecha_vencimiento" name="fecha_vencimiento" class="form-control" placeholder="Fecha de vencimiento" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success btn-block">
+                                    Guardar Pago
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

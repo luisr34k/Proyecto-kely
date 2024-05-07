@@ -1,0 +1,44 @@
+<div class="container-centered"></div>
+    <div class="container p-4" style="margin-right: 100px;">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Venta al Contado</h5>
+                        <form action="/contado" method="GET">
+                            <!-- Campos específicos para venta al contado -->
+                            <!-- Aquí puedes agregar los campos específicos para venta al contado -->
+
+                            <!-- Botón para enviar formulario de venta al contado -->
+                            <button type="submit" name="tipo_venta" value="contado" class="btn btn-primary btn-block">Venta al Contado</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Venta a Crédito</h5>
+                        <form action="/credito" method="GET">
+                            <!-- Campos específicos para venta a crédito -->
+                            <!-- Aquí puedes agregar los campos específicos para venta a crédito -->
+
+                            <!-- Botón para enviar formulario de venta a crédito -->
+                            <button type="submit" name="tipo_venta" value="credito" class="btn btn-primary btn-block">Venta a Crédito</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .container-centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 15vh; /* Esto centra verticalmente en la pantalla */
+
+    }
+</style>
